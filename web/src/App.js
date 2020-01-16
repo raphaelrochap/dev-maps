@@ -3,6 +3,7 @@ import React from 'react';
 import './global.css';
 import './App.css';
 import './Sidebar.css';
+import './Main.css';
 
 function App() { 
   return (    
@@ -37,7 +38,56 @@ function App() {
           </form>
       </aside>
       <main>
+      <ul>
+        <li className="dev-item">
+        <header>
+          <img src="https://avatars0.githubusercontent.com/u/21209032?s=400&v=4" alt="Raphael"/>
+          <div className="user-info">
+            <strong>Raphael da Rocha Pinto Barboza</strong>
+            <span>Delphizin, Flutter, React</span>
+          </div>
+        </header>
+        <p>Desenvolvedor Delphizão</p>
+        <a href="https:git">Acessar Repositório</a>
+        </li>
 
+        <li className="dev-item">
+        <header>
+          <img src="https://avatars0.githubusercontent.com/u/21209032?s=400&v=4" alt="Raphael"/>
+          <div className="user-info">
+            <strong>Raphael da Rocha Pinto Barboza</strong>
+            <span>Delphizin, Flutter, React</span>
+          </div>        
+        </header>
+        <p>Desenvolvedor Delphizão</p>
+        <a href="https:git">Acessar Repositório</a>
+        </li>
+        <li className="dev-item">
+        <header>
+          <img src="https://avatars0.githubusercontent.com/u/21209032?s=400&v=4" alt="Raphael"/>
+          <div className="user-info">
+            <strong>Raphael da Rocha Pinto Barboza</strong>
+            <span>Delphizin, Flutter, React</span>
+          </div>
+        </header>
+        <p>Desenvolvedor Delphizão</p>
+        <a href="https:git">Acessar Repositório</a>
+        </li>
+
+        <li className="dev-item">
+        <header>
+          <img src="https://avatars0.githubusercontent.com/u/21209032?s=400&v=4" alt="Raphael"/>
+          <div className="user-info">
+            <strong>Raphael da Rocha Pinto Barboza</strong>
+            <span>Delphizin, Flutter, React</span>
+          </div>        
+        </header>
+        <p>Desenvolvedor Delphizão</p>
+        <a href="https:git">Acessar Repositório</a>
+        </li>
+
+
+      </ul>
       </main>
     </div>  
   );
