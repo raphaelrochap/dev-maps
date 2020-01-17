@@ -1,40 +1,61 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './global.css';
 import './App.css';
 import './Sidebar.css';
 import './Main.css';
 
-function App() { 
+function App() {
+  const [ latitude, setLatitude ] = useState('');
+  const [ longitude, setLongitude ] = useState('');
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+
+        setLatitude(latitude);
+        setLongitude(longitude);
+
+
+        console.log(position);
+      },
+      (err) => {
+        console.log(err);
+      },
+      {
+        timeout: 30000,
+      }
+    )
+  }, []);
+  
   return (    
     <div id = "app">
       <aside>
         <strong>Cadastrar</strong>
           <form>
-            <div class="input-block">
-              <label htmlfor="github_username">Usuário do GitHub</label>
+            <div className="input-block">
+              <label htmlFor="github_username">Usuário do GitHub</label>
               <input name="github_username" id="github_username" required></input>
             </div>
 
-            <div class="input-block">
-              <label htmlfor="techs">Tecnologias</label>
+            <div className="input-block">
+              <label htmlFor="techs">Tecnologias</label>
               <input name="techs" id="techs" required></input>
             </div>
 
             <div className="input-group">
-              <div class="input-block">
-                <label htmlfor="latitude">Latitude</label>
-                <input name="latitude" id="latitude" required></input>
+              <div className="input-block">
+                <label htmlFor="latitude">Latitude</label>
+                <input name="latitude" id="latitude" required value={latitude}></input>
               </div>
 
-              <div class="input-block">
-                <label htmlfor="longitude">Longitude</label>
-                <input name="longitude" id="longitude" required></input>
-              </div>
-
-              <button type="submit">Salvar</button>
-
-            </div>       
+              <div className="input-block">
+                <label htmlFor="longitude">Longitude</label>
+                <input name="longitude" id="longitude" required value={longitude}></input>
+              </div>              
+            </div>
+            <button type="submit">Salvar</button>       
           </form>
       </aside>
       <main>
@@ -59,7 +80,7 @@ function App() {
             <span>Delphizin, Flutter, React</span>
           </div>        
         </header>
-        <p>Desenvolvedor Delphizão</p>
+        <p>Desenvolvedor Delphizão e outras coisas</p>
         <a href="https:git">Acessar Repositório</a>
         </li>
         <li className="dev-item">
