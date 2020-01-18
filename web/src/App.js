@@ -1,113 +1,54 @@
 import React, { useState, useEffect } from 'react';
+import api from './services/api';
 
 import './global.css';
 import './App.css';
 import './Sidebar.css';
 import './Main.css';
 
+import DevItem from './components/DevItem';
+import DevForm from './components/DevForm';
+
 function App() {
-  const [ latitude, setLatitude ] = useState('');
-  const [ longitude, setLongitude ] = useState('');
+  const [ devs, setDevs ] = useState([]);
+
+  
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
+    async function loadDevs(){
+      const response = await api.get('/devs');
 
-        setLatitude(latitude);
-        setLongitude(longitude);
+      setDevs(response.data);
 
+    }
 
-        console.log(position);
-      },
-      (err) => {
-        console.log(err);
-      },
-      {
-        timeout: 30000,
-      }
-    )
+    loadDevs();
   }, []);
   
+async function handleAddDev(data){
+  const response = await api.post('/devs', data);
+
+  setDevs([...devs, response.data]);
+
+  console.log(response.data);
+}
+
   return (    
     <div id = "app">
       <aside>
         <strong>Cadastrar</strong>
-          <form>
-            <div className="input-block">
-              <label htmlFor="github_username">Usuário do GitHub</label>
-              <input name="github_username" id="github_username" required></input>
-            </div>
-
-            <div className="input-block">
-              <label htmlFor="techs">Tecnologias</label>
-              <input name="techs" id="techs" required></input>
-            </div>
-
-            <div className="input-group">
-              <div className="input-block">
-                <label htmlFor="latitude">Latitude</label>
-                <input name="latitude" id="latitude" required value={latitude}></input>
-              </div>
-
-              <div className="input-block">
-                <label htmlFor="longitude">Longitude</label>
-                <input name="longitude" id="longitude" required value={longitude}></input>
-              </div>              
-            </div>
-            <button type="submit">Salvar</button>       
-          </form>
+        <DevForm onSubmit={handleAddDev}/>
       </aside>
       <main>
       <ul>
-        <li className="dev-item">
-        <header>
-          <img src="https://avatars0.githubusercontent.com/u/21209032?s=400&v=4" alt="Raphael"/>
-          <div className="user-info">
-            <strong>Raphael da Rocha Pinto Barboza</strong>
-            <span>Delphizin, Flutter, React</span>
-          </div>
-        </header>
-        <p>Desenvolvedor Delphizão</p>
-        <a href="https:git">Acessar Repositório</a>
-        </li>
-
-        <li className="dev-item">
-        <header>
-          <img src="https://avatars0.githubusercontent.com/u/21209032?s=400&v=4" alt="Raphael"/>
-          <div className="user-info">
-            <strong>Raphael da Rocha Pinto Barboza</strong>
-            <span>Delphizin, Flutter, React</span>
-          </div>        
-        </header>
-        <p>Desenvolvedor Delphizão e outras coisas</p>
-        <a href="https:git">Acessar Repositório</a>
-        </li>
-        <li className="dev-item">
-        <header>
-          <img src="https://avatars0.githubusercontent.com/u/21209032?s=400&v=4" alt="Raphael"/>
-          <div className="user-info">
-            <strong>Raphael da Rocha Pinto Barboza</strong>
-            <span>Delphizin, Flutter, React</span>
-          </div>
-        </header>
-        <p>Desenvolvedor Delphizão</p>
-        <a href="https:git">Acessar Repositório</a>
-        </li>
-
-        <li className="dev-item">
-        <header>
-          <img src="https://avatars0.githubusercontent.com/u/21209032?s=400&v=4" alt="Raphael"/>
-          <div className="user-info">
-            <strong>Raphael da Rocha Pinto Barboza</strong>
-            <span>Delphizin, Flutter, React</span>
-          </div>        
-        </header>
-        <p>Desenvolvedor Delphizão</p>
-        <a href="https:git">Acessar Repositório</a>
-        </li>
 
 
+        {devs.map(dev => (
+          <DevItem key={dev._id} dev={dev} />  
+        ))}
+        
+
+      
       </ul>
       </main>
     </div>  
